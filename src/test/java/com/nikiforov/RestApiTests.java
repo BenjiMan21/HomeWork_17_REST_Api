@@ -1,6 +1,8 @@
 package com.nikiforov;
 
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -10,11 +12,17 @@ import static org.hamcrest.Matchers.is;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RestApiTests {
+    @BeforeAll
+    static void restAssuredBase() {
+        RestAssured.baseURI = "https://reqres.in";
+        RestAssured.basePath = "/api";
+    }
+
     @Test
     void checkThePageTest() {
         given()
                 .when()
-                .get("https://reqres.in/api/unknown")
+                .get("/unknown")
                 .then()
                 .body("page", is(1));
     }
@@ -24,7 +32,7 @@ public class RestApiTests {
         given()
                 .log().all()
                 .when()
-                .get("https://reqres.in/api/unknown")
+                .get("/unknown")
                 .then()
                 .log().all()
                 .body("page", is(1));
@@ -36,7 +44,7 @@ public class RestApiTests {
                 .log().uri()
                 .log().method()
                 .when()
-                .get("https://reqres.in/api/unknown")
+                .get("/unknown")
                 .then()
                 .log().status()
                 .log().body()
@@ -49,7 +57,7 @@ public class RestApiTests {
                 .log().uri()
                 .log().method()
                 .when()
-                .get("https://reqres.in/api/unknown")
+                .get("/unknown")
                 .then()
                 .log().status()
                 .log().body()
@@ -63,7 +71,7 @@ public class RestApiTests {
                 .log().uri()
                 .log().method()
                 .when()
-                .get("https://reqres.in/api/unknown")
+                .get("/unknown")
                 .then()
                 .log().status()
                 .log().body()
@@ -78,7 +86,7 @@ public class RestApiTests {
                 .log().uri()
                 .log().method()
                 .when()
-                .get("https://reqres.in/api/unknown")
+                .get("/unknown")
                 .then()
                 .log().status()
                 .log().body()
@@ -94,7 +102,7 @@ public class RestApiTests {
                 .log().uri()
                 .log().method()
                 .when()
-                .get("https://reqres.in/api/unknown")
+                .get("/unknown")
                 .then()
                 .log().status()
                 .log().body()
@@ -113,7 +121,7 @@ public class RestApiTests {
                 .log().uri()
                 .log().method()
                 .when()
-                .get("https://reqres.in/api/unknown")
+                .get("/unknown")
                 .then()
                 .log().status()
                 .log().body()

@@ -1,5 +1,7 @@
 package com.nikiforov;
 
+import io.restassured.RestAssured;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -8,6 +10,12 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 import static org.hamcrest.Matchers.is;
 
 public class LoginRestApiTest {
+
+    @BeforeAll
+    static void restAssuredBase() {
+        RestAssured.baseURI = "https://reqres.in";
+        RestAssured.basePath = "/api";
+    }
     @Test
     void checkUnsuccessfulLoginTest() {
         given()
@@ -17,7 +25,7 @@ public class LoginRestApiTest {
                 .contentType(JSON)
                 .body("{ \"email\": \"peter@klaven\" }")
                 .when()
-                .post("https://reqres.in/api/login")
+                .post("/login")
                 .then()
                 .log().status()
                 .log().body()
